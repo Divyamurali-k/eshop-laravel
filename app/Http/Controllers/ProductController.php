@@ -28,19 +28,50 @@ class ProductController extends Controller
     }
     public function store()
     {
-       dd('in store');
+    //    $product=Product::create([
+    //     'title' => request()->title,
+    //     'description' => request()->description,
+    //     'price' => request()->price,
+    //     'stock' => request()->stock,
+    //     'status' => request()->status,
+    //    ]);
+    $product=Product::create(request()->all());
+    if(request()->stock == 0 && request()->status == 'available')
+    {
+        session()->flash('error','if available must have stock');
+        return redirect()->back();
     }
+    
+    return redirect()->route('products.index');
+    }
+
+
     public function edit($product)
     {
-        return "showing the product {$product} to edit";
+        return view('products.edit')->with([
+            'product' =>Product::findOrFail($product),
+        ]);
+        // return "showing the product {$product} to edit";
     }
-    public function update()
+
+
+    public function update($product)
     {
-       //
+        $product= Product::findOrFail($product);
+        $product->update(request()->all());
+
+        return //redirect
+        // redirect()->back();
+        redirect()->route('products.index');
+        // redirect()->action('ProductController@index');
+        // return $product;
+    //    dd('update');
     }
-    public function destroy()
+    public function destroy($product)
     {
-       //
+        $product= Product::findOrFail($product);
+        $product->delete();
+        return redirect()->route('products.index');
     }
 
     public function show($product)

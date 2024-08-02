@@ -24,8 +24,8 @@
     <label>Status</label>
     <select name="status" class="custom-select" required>
         <option value="" selected>Select</option>
-        <option value="available"></option>
-        <option value="unavailable"></option>
+        <option value="available">Available</option>
+        <option value="unavailable">Unavailable</option>
     </select>
 </div>
 <div class="form-row">
