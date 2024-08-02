@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -38,7 +39,7 @@ class ProductController extends Controller
         return view('products.create');
         // return 'A form to create products from controller';
     }
-    public function store()
+    public function store(ProductRequest $request)
     {
         //    $product=Product::create([
         //     'title' => request()->title,
@@ -47,27 +48,27 @@ class ProductController extends Controller
         //     'stock' => request()->stock,
         //     'status' => request()->status,
         //    ]);
-        $rules=[
-           'title' => ['required','max:255'],
-            'description' => ['required','max:1000'],
-            'price' => ['required','min:1'],
-            'stock' => ['required','min:0'],
-            'status' => ['required','in:available,unavailable'],
-        ];
-        request()->validate($rules);
-       
-        if (request()->stock == 0 && request()->status == 'available') {
-            // session()->flash('error', 'if available must have stock');
-            return redirect()
-            ->back()
-            ->withInput(request()->all())
-            ->withErrors('if available must have stock');
-        }
-        $product = Product::create(request()->all());
+        // $rules=[
+        //    'title' => ['required','max:255'],
+        //     'description' => ['required','max:1000'],
+        //     'price' => ['required','min:1'],
+        //     'stock' => ['required','min:0'],
+        //     'status' => ['required','in:available,unavailable'],
+        // ];
+        // request()->validate($rules);
+
+        // if (request()->stock == 0 && request()->status == 'available') {
+        //     // session()->flash('error', 'if available must have stock');
+        //     return redirect()
+        //         ->back()
+        //         ->withInput(request()->all())
+        //         ->withErrors('if available must have stock');
+        // }
+        $product = Product::create($request->validated());
         // session()->flash('success', "New product with id {$product->id} was created");
         return redirect()
-        ->route('products.index')
-        ->withSuccess("New product with id {$product->id} was created");
+            ->route('products.index')
+            ->withSuccess("New product with id {$product->id} was created");
     }
 
 
@@ -80,26 +81,19 @@ class ProductController extends Controller
     }
 
 
-    public function update($product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $rules=[
-            'title' => ['required','max:255'],
-             'description' => ['required','max:1000'],
-             'price' => ['required','min:1'],
-             'stock' => ['required','min:0'],
-             'status' => ['required','in:available,unavailable'],
-         ];
-         request()->validate($rules);
 
-        $product = Product::findOrFail($product);
-        $product->update(request()->all());
+
+        // $product = Product::findOrFail($product);
+        $product->update($request->validated());
 
         return redirect()
-        ->route('products.index')
-        ->withSuccess("The product with id {$product->id} was updated");
+            ->route('products.index')
+            ->withSuccess("The product with id {$product->id} was updated");
 
         // return //redirect
-            // redirect()->back();
+        // redirect()->back();
         // redirect()->action('ProductController@index');
         // return $product;
         //    dd('update');
@@ -108,10 +102,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($product);
         $product->delete();
-       
+
         return redirect()
-        ->route('products.index')
-        ->withSuccess("The product with id {$product->id} was deleted");
+            ->route('products.index')
+            ->withSuccess("The product with id {$product->id} was deleted");
     }
 
     public function show(Product $product)
@@ -120,7 +114,7 @@ class ProductController extends Controller
         // $products= DB::table('products')->where('id',$product)->get();
         // $products= DB::table('products')->where('id',$product)->first();
         // $products= DB::table('products')->find($product);
-        
+
         // $product = Product::findOrFail($product);
         return view('products.show')->with([
             'product' => $product,

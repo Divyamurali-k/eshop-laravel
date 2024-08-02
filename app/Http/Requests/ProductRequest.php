@@ -24,7 +24,19 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required','max:255'],
+            'description' => ['required','max:1000'],
+            'price' => ['required','min:1'],
+            'stock' => ['required','min:0'],
+            'status' => ['required','in:available,unavailable'],
         ];
+    }
+    public function withValidator($validator){
+        $validator->after(function ($validator){
+            if ($this->stock == 0 && $this->status == 'available') {
+                $validator->errors()->add('stock','if available must have stock');
+            }
+        });
+       
     }
 }
