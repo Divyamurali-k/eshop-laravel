@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\Order;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,10 +15,12 @@ class OrderFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Order::class;
     public function definition()
     {
         return [
-            //
+            'status' => $this->faker->randomElement(['pending','paid','shipped']),
+
         ];
     }
 }

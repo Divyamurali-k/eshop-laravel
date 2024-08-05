@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\Cart;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,6 +15,8 @@ class CartFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Cart::class;
+    
     public function definition()
     {
         return [

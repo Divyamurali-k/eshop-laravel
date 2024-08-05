@@ -9,14 +9,15 @@
 
 ## About Eshop
 
-> **Note:** The eShop project is a comprehensive Laravel-based web application designed to teach you the fundamentals and advanced features of Laravel through practical application. This project involves creating a fully functional online store where users can browse products, manage their shopping carts, and complete purchases.
+The eShop project is a comprehensive Laravel-based web application designed to teach you the fundamentals and advanced features of Laravel through practical application. This project involves creating a fully functional online store where users can browse products, manage their shopping carts, and complete purchases.
 
+> **Note:** 
 Key Features:
+* Product Management: Admins can add, update, and delete products.
+* User Authentication: Secure user registration, login, and profile management.
+* Shopping Cart: Users can add items to their cart, update quantities, and proceed to checkout.
+* Order Processing: Handle orders with features for tracking and managing order status.
+* Responsive Design: A user-friendly interface optimized for both desktop and mobile devices.
 
-Product Management: Admins can add, update, and delete products.
-User Authentication: Secure user registration, login, and profile management.
-Shopping Cart: Users can add items to their cart, update quantities, and proceed to checkout.
-Order Processing: Handle orders with features for tracking and managing order status.
-Responsive Design: A user-friendly interface optimized for both desktop and mobile devices.
 By working on this eShop project, you'll gain hands-on experience with Laravel's core features like routing, controllers, Eloquent ORM, Blade templating, and more, all while building a practical and engaging application.
 
