@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductCartController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +51,9 @@ Route::resource('products',ProductController::class);
 // Route::match(['put','patch'],'/products/{product}/', function ($product) {
 //    //
 // })->name("products.update");
+Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
+Route::resource('carts',CartController::class)->only(['index']);
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

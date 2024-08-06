@@ -16,6 +16,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Style -->
+    <!-- <link href="{{asset('css/app.css')}}" rel="stylesheet"> -->
+
 </head>
 
 <body>
@@ -32,8 +36,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                        </li>
+                        @inject('cartService','App\Services\CartService')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('carts.index') }}">Carts<sup>({{$cartService->countProducts()}})</sup></a>
                         </li>
                     </ul>
 
