@@ -8,8 +8,13 @@ class MainController extends Controller
 {
     public function index()
     {
+        $products=Product::available()->get();
+        // $products=Product::where('status','available')->get();
+
         return view('welcome')->with([
-            'products'=>Product::all(),
+
+         
+            'products'=> $products,
         ]);
     }
 }
