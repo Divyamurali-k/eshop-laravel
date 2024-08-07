@@ -6,6 +6,8 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductCartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderPaymentController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::get('/', [MainController::class, 'index'])->name("main");
 
 // Route::get('/products','ProductController@index')->name("products.index");
 
-Route::resource('products',ProductController::class);
+// Route::resource('products',ProductController::class);
 
 // Route::get('/products', [ProductController::class, 'index'])->name("products.index");
 // Route::get('/products/create', [ProductController::class, 'create'])->name("products.create");
@@ -51,8 +53,10 @@ Route::resource('products',ProductController::class);
 // Route::match(['put','patch'],'/products/{product}/', function ($product) {
 //    //
 // })->name("products.update");
-Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
 Route::resource('carts',CartController::class)->only(['index']);
+Route::resource('orders',OrderController::class)->only(['create','store']);
+Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
+Route::resource('orders.payments',OrderPaymentController::class)->only(['create','store']);
 
 Auth::routes();
 

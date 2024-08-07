@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
+use App\Services\CartService;
+use illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public $cartService;
+
+    public function __construct(CartService $cartService)
     {
-        //
+        $this->cartService  = $cartService;
+        $this->middleware('auth');
     }
 
     /**
@@ -25,7 +26,16 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $cart = $this->cartService->getFromCookie();
+
+        if (!isset($cart) || $cart->products->isEmpty()) {
+            return redirect()
+                ->back()
+                ->withErrors('Your Cart is Empty');
+        }
+        return view('orders.create')->with([
+            'cart' => $cart,
+        ]);
     }
 
     /**
@@ -36,51 +46,21 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOrderRequest  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
+        $user = $request->user();
+        // $user = User::find(21);
+        // dd($user);
+        $order = $user->orders()->create([
+            'status' => 'pending',
+        ]);
+        $cart = $this->cartService->getFromCookie();
+        $cartProductsWithQuantity = $cart
+            ->products
+            ->mapWithKeys(function ($product) {
+                $element[$product->id] = ['quantity' => $product->pivot->quantity];
+                return $element;
+            });
+        // dd($cartProductsWithQuantity);
+        $order->products()->attach($cartProductsWithQuantity->toArray());
+        return redirect()->route('orders.payments.create',['order'=>$order->id]);
     }
 }

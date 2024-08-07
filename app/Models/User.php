@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Image;
@@ -44,7 +45,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-       /**
+    /**
      * The attributes that should be mutated to dates.
      *
      * @deprecated Use the "casts" property
@@ -55,13 +56,21 @@ class User extends Authenticatable
         'admin_since',
     ];
 
-    public function orders(){
-        return $this->hasMany(Order::class,'customer_id');
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id');
     }
-    public function payments(){
-        return $this->hasManyThrough(Payment::class,Order::class,'customer_id');
+    public function payments()
+    {
+        return $this->hasManyThrough(Payment::class, Order::class, 'customer_id');
     }
-    public function image(){
-        return $this->morphOne(Image::class,'imageable');
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+    public function isAdmin()
+    {
+        return $this->admin_since != null
+            && $this->admin_since->lessThanOrEqualTo(now());
     }
 }
