@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
@@ -53,6 +53,9 @@ Route::get('/', [MainController::class, 'index'])->name("main");
 // Route::match(['put','patch'],'/products/{product}/', function ($product) {
 //    //
 // })->name("products.update");
+Route::get('profile', [ProfileController::class, 'edit'])->name("profile.edit");
+Route::put('profile', [ProfileController::class, 'update'])->name("profile.update");
+
 Route::resource('carts',CartController::class)->only(['index']);
 Route::resource('orders',OrderController::class)->only(['create','store'])->middleware(['verified']);
 Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
@@ -60,6 +63,7 @@ Route::resource('orders.payments',OrderPaymentController::class)->only(['create'
 
 Auth::routes([
     'verify'=>true,
+    // 'reset'=>false, the link 'forgot password' in login form doesnt appear
 ]);
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');

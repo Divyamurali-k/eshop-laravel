@@ -30,6 +30,13 @@ return [
 
     'disks' => [
 
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL').'/images',
+            'visibility' => 'public',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -41,7 +48,7 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-            'throw' => false,
+            // 'throw' => false,
         ],
 
         's3' => [
@@ -53,7 +60,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
+            // 'throw' => false,
         ],
 
     ],
@@ -71,6 +78,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('images') => storage_path('app/public/images'),
     ],
 
 ];
