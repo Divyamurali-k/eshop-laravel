@@ -8,10 +8,13 @@
     @else
     
     <div class="row">
+    <!-- @dump($products) -->
     @foreach($products as $product)
     <div class="col-3">
     @include('components.product-card')
     @endforeach
+    <!-- @dump($products)
+    @dump(\DB::getQueryLog()) -->
     </div>
     
    

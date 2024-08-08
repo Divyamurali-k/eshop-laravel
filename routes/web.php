@@ -54,10 +54,12 @@ Route::get('/', [MainController::class, 'index'])->name("main");
 //    //
 // })->name("products.update");
 Route::resource('carts',CartController::class)->only(['index']);
-Route::resource('orders',OrderController::class)->only(['create','store']);
+Route::resource('orders',OrderController::class)->only(['create','store'])->middleware(['verified']);
 Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
-Route::resource('orders.payments',OrderPaymentController::class)->only(['create','store']);
+Route::resource('orders.payments',OrderPaymentController::class)->only(['create','store'])->middleware(['verified']);
 
-Auth::routes();
+Auth::routes([
+    'verify'=>true,
+]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');

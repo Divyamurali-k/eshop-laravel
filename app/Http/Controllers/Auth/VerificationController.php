@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use App\Models\User;
+use Illuminate\Http\Request;
+
+
 class VerificationController extends Controller
 {
     /*
@@ -25,7 +29,10 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
+    protected $redirectTo = RouteServiceProvider :: HOME;
+
+    
 
     /**
      * Create a new controller instance.
@@ -37,5 +44,19 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * The user has been verified.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function verified(Request $request)
+    {
+        return redirect($this->redirectPath())
+            ->with([
+                'success' => 'Your account haS been verified. Thanks!',
+            ]);
     }
 }

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProductRequest;
-use App\Models\Product;
+use App\Models\PanelProduct;
+use App\Scopes\AvailableScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,9 @@ class ProductController extends Controller
     {
 
         // $products= DB::table('products')->get();
-        $products = Product::all();
+        // $products = Product::all();
+        // $products = Product::withoutGlobalScope(AvailableScope::class)->get();
+        $products = PanelProduct::without('images')->get();
         // return 'This is list of products from controller';\
         return view('products.index')->with([
             'products' => $products,
@@ -66,7 +69,7 @@ class ProductController extends Controller
         //         ->withInput(request()->all())
         //         ->withErrors('if available must have stock');
         // }
-        $product = Product::create($request->validated());
+        $product = PanelProduct::create($request->validated());
         // session()->flash('success', "New product with id {$product->id} was created");
         return redirect()
             ->route('products.index')
@@ -74,16 +77,20 @@ class ProductController extends Controller
     }
 
 
-    public function edit($product)
+    // public function edit($product)
+    // {
+    //     return view('products.edit')->with([
+    //         'product' => Product::findOrFail($product),
+    //     ]);
+    // }
+    public function edit(PanelProduct $product)
     {
         return view('products.edit')->with([
-            'product' => Product::findOrFail($product),
+            'product' => $product,
         ]);
-        // return "showing the product {$product} to edit";
     }
 
-
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, PanelProduct $product)
     {
 
 
@@ -102,7 +109,7 @@ class ProductController extends Controller
     }
     public function destroy($product)
     {
-        $product = Product::findOrFail($product);
+        $product = PanelProduct::findOrFail($product);
         $product->delete();
 
         return redirect()
@@ -110,7 +117,7 @@ class ProductController extends Controller
             ->withSuccess("The product with id {$product->id} was deleted");
     }
 
-    public function show(Product $product)
+    public function show(PanelProduct $product)
     {
         // $products= Product::where('id',$product)->get();
         // $products= DB::table('products')->where('id',$product)->get();

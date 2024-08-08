@@ -8,6 +8,9 @@ use App\Services\CartService;
 use illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
 
 class OrderController extends Controller
 {
@@ -46,21 +49,33 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $user = $request->user();
-        // $user = User::find(21);
-        // dd($user);
-        $order = $user->orders()->create([
-            'status' => 'pending',
-        ]);
-        $cart = $this->cartService->getFromCookie();
-        $cartProductsWithQuantity = $cart
-            ->products
-            ->mapWithKeys(function ($product) {
-                $element[$product->id] = ['quantity' => $product->pivot->quantity];
-                return $element;
-            });
-        // dd($cartProductsWithQuantity);
-        $order->products()->attach($cartProductsWithQuantity->toArray());
-        return redirect()->route('orders.payments.create',['order'=>$order->id]);
+        return DB::transaction(function () use ($request) {
+            $user = $request->user();
+            // $user = User::find(21);
+            // dd($user);
+            $order = $user->orders()->create([
+                'status' => 'pending',
+            ]);
+            $cart = $this->cartService->getFromCookie();
+            $cartProductsWithQuantity = $cart
+                ->products
+                ->mapWithKeys(function ($product) {
+
+                    $quantity = $product->pivot->quantity;
+                    if ($product->stock < $quantity) {
+                        throw ValidationException::withMessages([
+                            'cart' => "There is no enough stock for the quantity you required of {$product->title}",
+                        ]);
+                    }
+
+                    $product->decrement('stock',$quantity);
+                    $element[$product->id] = ['quantity' => $quantity];
+                    return $element;
+                });
+            // dd($cartProductsWithQuantity);
+            $order->products()->attach($cartProductsWithQuantity->toArray());
+
+            return redirect()->route('orders.payments.create', ['order' => $order->id]);
+        }, 5);
     }
 }

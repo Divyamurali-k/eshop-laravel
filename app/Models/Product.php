@@ -5,11 +5,17 @@ namespace App\Models;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Image;
+use App\Scopes\AvailableScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Product extends Model
 {
+    protected $table='products'; //take table as products
+    protected $with=[
+        'images',
+    ];
     use HasFactory;
     /**
      * The attributes that are mass assignable.
@@ -23,6 +29,16 @@ class Product extends Model
         'stock',
         'status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new AvailableScope);
+    }
 
     public function carts()
     {

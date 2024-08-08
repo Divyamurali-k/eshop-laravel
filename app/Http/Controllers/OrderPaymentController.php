@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Services\CartService;
+use Illuminate\Support\Facades\DB;
 
 
 class OrderPaymentController extends Controller
@@ -41,17 +42,20 @@ class OrderPaymentController extends Controller
      */
     public function store(Request $request, Order $order)
     {
-        $order->payment()->create([
-            'amount' => $order->total,
-            'payed_at' => now(),
-            1
-        ]);
-
-        $order->status = 'payed';
-        $order->save();
-
-        return redirect()
-            ->route('main')
-            ->withSuccess("Thank you! We received your \${$order->total} payment.");
+        return DB::transaction(function () use($order) {
+            $order->payment()->create([
+                'amount' => $order->total,
+                'payed_at' => now(),
+                1
+            ]);
+    
+            $order->status = 'payed';
+            $order->save();
+    
+            return redirect()
+                ->route('main')
+                ->withSuccess("Thank you! We received your \${$order->total} payment."); 
+        });
+    
     }
 }
