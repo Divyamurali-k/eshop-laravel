@@ -1,23 +1,46 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# eShop
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Welcome to the **eShop** project! This comprehensive Laravel-based web application is designed to provide you with practical experience in building a fully functional online store. Whether you're a beginner looking to learn Laravel or an experienced developer aiming to brush up on your skills, this project will help you master the fundamentals and advanced features of Laravel through hands-on experience.
 
-## About Eshop
+## Key Features
 
-The eShop project is a comprehensive Laravel-based web application designed to teach you the fundamentals and advanced features of Laravel through practical application. This project involves creating a fully functional online store where users can browse products, manage their shopping carts, and complete purchases.
+- **Product Management**: 
+  - Admins can easily add, update, and delete products.
+- **User Authentication**: 
+  - Secure registration, login, and profile management for users.
+- **Shopping Cart**: 
+  - Users can add items to their cart, adjust quantities, and proceed to checkout.
+- **Order Processing**: 
+  - Comprehensive order management with tracking and status updates.
+- **Responsive Design**: 
+  - A user-friendly interface that works seamlessly on both desktop and mobile devices.
 
-> **Note:** 
-Key Features:
-* Product Management: Admins can add, update, and delete products.
-* User Authentication: Secure user registration, login, and profile management.
-* Shopping Cart: Users can add items to their cart, update quantities, and proceed to checkout.
-* Order Processing: Handle orders with features for tracking and managing order status.
-* Responsive Design: A user-friendly interface optimized for both desktop and mobile devices.
+## Technology Stack
 
-By working on this eShop project, you'll gain hands-on experience with Laravel's core features like routing, controllers, Eloquent ORM, Blade templating, and more, all while building a practical and engaging application.
+- **Laravel Framework**: 9.52.16
+- **PHP**: 8.0.30
+- **Composer**: 2.7.4
+- **Node.js**: v16.13.0
+- **npm**: 8.12.1
 
+## Getting Started
+
+To get started with the eShop application, follow these steps:
+
+### Prerequisites
+
+Ensure you have the following installed on your machine:
+- PHP (>= 8.0.30)
+- Composer (>= 2.7.4)
+- Node.js (>= v16.13.0)
+- npm (>= 8.12.1)
+
+### Installation
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/Divyamurali-k/eshop-laravel.git
+   cd eshop
+
+   
