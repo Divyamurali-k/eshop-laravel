@@ -72,19 +72,19 @@ Ensure you have the following installed on your machine:
     ```
 6. **Run Migrations:**
     ```bash
-       php artisan migrate
+    php artisan migrate
     ```
 7. **Install Node.js Dependencies:**
     ```bash
-       npm install
+    npm install
     ```
 8. **Build Assets:**
     ```bash
-       npm run dev
+    npm run dev
     ```
 9. **Start the Development Server:**
     ```bash
-       php artisan serve
+    php artisan serve
     ```
 - The application will be accessible at http://localhost:8000.
 
