@@ -67,7 +67,7 @@
 
                             <div class="col-md-6">
          
-                                <input id="image" type="file" class="form-control" name="image"  accept="images/*">
+                                <input id="image" type="file" class="form-control" name="image"  accept="image/*">
                                 <!-- <label for="" class="col-form-label">Profile image</label> -->                               
                             </div>
                            

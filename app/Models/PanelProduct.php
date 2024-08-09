@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class PanelProduct extends Product
 {
-    
+
     /**
      * The "booted" method of the model.
      *
@@ -15,5 +15,15 @@ class PanelProduct extends Product
     protected static function booted()
     {
         // static::addGlobalScope();
+    }
+    public function getForeignkey()
+    {
+        $parent=get_parent_class($this);
+        return (new Product)->getForeignkey();
+    }
+    public function getMorphClass()
+    {
+        $parent=get_parent_class($this);
+        return (new Product)->getMorphClass();
     }
 }
