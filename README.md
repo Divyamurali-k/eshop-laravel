@@ -89,11 +89,4 @@ Ensure you have the following installed on your machine:
 - The application will be accessible at http://localhost:8000.
 
 
-### Customization Tips
-
-1. **Repository URL**: Update `https://github.com/yourusername/eshop.git` with the actual URL of your repository.
-2. **License**: Ensure you include a `LICENSE` file in your repository if you mention a license, and update the license type if needed.
-
-This format provides a clear and organized README that helps users understand and set up your Laravel eShop application easily.
-
 
