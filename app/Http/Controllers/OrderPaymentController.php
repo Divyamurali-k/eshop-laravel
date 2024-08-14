@@ -30,7 +30,7 @@ class OrderPaymentController extends Controller
         return view('payments.create')->with([
             'order' => $order,
         ]);
-        dd("create");
+        // dd("create");
     }
 
     /**
@@ -46,10 +46,10 @@ class OrderPaymentController extends Controller
             $order->payment()->create([
                 'amount' => $order->total,
                 'payed_at' => now(),
-                1
+                // 1
             ]);
     
-            $order->status = 'payed';
+            $order->status = 'paid';
             $order->save();
     
             return redirect()

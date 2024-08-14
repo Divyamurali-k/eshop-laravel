@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateCartRequest;
 
 class CartController extends Controller
 {
+
+    
     public $cartService;
 
     public function __construct(CartService $cartService)
@@ -16,7 +18,7 @@ class CartController extends Controller
         $this->cartService  = $cartService;
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *

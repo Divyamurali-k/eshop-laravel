@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
+    
     public function index()
     {
         // \DB::connection()->enableQueryLog();
@@ -19,5 +20,7 @@ class MainController extends Controller
          
             'products'=> $products,
         ]);
+
+        
     }
 }

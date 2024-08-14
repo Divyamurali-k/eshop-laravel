@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductCartController;
 use App\Http\Controllers\OrderController;
@@ -56,14 +56,23 @@ Route::get('/', [MainController::class, 'index'])->name("main");
 Route::get('profile', [ProfileController::class, 'edit'])->name("profile.edit");
 Route::put('profile', [ProfileController::class, 'update'])->name("profile.update");
 
-Route::resource('carts',CartController::class)->only(['index']);
-Route::resource('orders',OrderController::class)->only(['create','store'])->middleware(['verified']);
-Route::resource('products.carts',ProductCartController::class)->only(['store','destroy']);
-Route::resource('orders.payments',OrderPaymentController::class)->only(['create','store'])->middleware(['verified']);
+Route::resource('carts', CartController::class)->only(['index']);
+Route::resource('orders', OrderController::class)->only(['create', 'store'])->middleware(['verified']);
+Route::resource('products.carts', ProductCartController::class)->only(['store', 'destroy']);
+Route::resource('orders.payments', OrderPaymentController::class)->only(['create', 'store'])->middleware(['verified']);
 
 Auth::routes([
-    'verify'=>true,
+    'verify' => true,
     // 'reset'=>false, the link 'forgot password' in login form doesnt appear
 ]);
+
+
+// Route::middleware('verified')->group(function() {
+//     // to work with orders
+//     Route::resource('orders', 'OrderController')->only(['create', 'store']);
+//     // to work with product carts - nested resource
+//     Route::resource('orders.payments', 'OrderPaymentController')->only(['store', 'create']);
+// });
+
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');

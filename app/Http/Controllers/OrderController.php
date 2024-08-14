@@ -68,7 +68,7 @@ class OrderController extends Controller
                         ]);
                     }
 
-                    $product->decrement('stock',$quantity);
+                    $product->decrement('stock', $quantity);
                     $element[$product->id] = ['quantity' => $quantity];
                     return $element;
                 });

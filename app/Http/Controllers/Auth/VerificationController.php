@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -56,7 +55,7 @@ class VerificationController extends Controller
     {
         return redirect($this->redirectPath())
             ->with([
-                'success' => 'Your account haS been verified. Thanks!',
+                'success' => 'Your account has been verified. Thanks!',
             ]);
     }
 }
