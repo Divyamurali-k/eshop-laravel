@@ -66,14 +66,14 @@ Ensure you have the following installed on your machine:
     DB_PASSWORD=your_database_password
 
     ```
-5. **Generate Application Key:**
+5. **Import the Database:**
+  - Import the database from the provided SQL file: 
+    - Locate the SQL file in the database folder: database/laravel_eshop.sql
+    - Import it into your MySQL database. You can use a tool like phpMyAdmin 
+6. **Generate Application Key:**
     ```bash
     php artisan key:generate
     ```
-6. **Import the Database:**
-  - Import the database from the provided SQL file:
-        1.Locate the SQL file in the dalatabe folder: database/laravel_eshop.sql.
-        2.Import it into your MySQL database. You can use a tool like phpMyAdmin 
 7. **Install Node.js Dependencies:**
     ```bash
     npm install
@@ -90,8 +90,8 @@ Ensure you have the following installed on your machine:
 
 **Admin Access**
 - To access the admin panel, use the following credentials:
-    Username: admin@admin.com
-    Password: admin@123
+    - Username: admin@admin.com
+    - Password: admin@123
 
 
 
