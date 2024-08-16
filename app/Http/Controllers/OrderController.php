@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\CartService;
-use illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Support\Facades\DB;
@@ -41,13 +41,13 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
+   /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreOrderRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
         return DB::transaction(function () use ($request) {
             $user = $request->user();
@@ -64,7 +64,7 @@ class OrderController extends Controller
                     $quantity = $product->pivot->quantity;
                     if ($product->stock < $quantity) {
                         throw ValidationException::withMessages([
-                            'cart' => "There is no enough stock for the quantity you required of {$product->title}",
+                            'cart' => "There is not enough stock for the quantity you required of {$product->title}",
                         ]);
                     }
 

@@ -70,10 +70,10 @@ Ensure you have the following installed on your machine:
     ```bash
     php artisan key:generate
     ```
-6. **Run Migrations:**
-    ```bash
-    php artisan migrate
-    ```
+6. **Import the Database:**
+  - Import the database from the provided SQL file:
+        1.Locate the SQL file in the dalatabe folder: database/laravel_eshop.sql.
+        2.Import it into your MySQL database. You can use a tool like phpMyAdmin 
 7. **Install Node.js Dependencies:**
     ```bash
     npm install
@@ -87,6 +87,11 @@ Ensure you have the following installed on your machine:
     php artisan serve
     ```
 - The application will be accessible at http://localhost:8000.
+
+**Admin Access**
+- To access the admin panel, use the following credentials:
+    Username: admin@admin.com
+    Password: admin@123
 
 
 
